@@ -44,5 +44,11 @@ public class TranslateCommand implements Commande {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

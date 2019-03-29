@@ -46,4 +46,10 @@ public class ZoomCommand implements Commande {
 		
 	}
 
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
