@@ -55,7 +55,7 @@ public class GestionnaireCommande {
 	 * Getteur de singleton GestionnaireCommande
 	 * @return
 	 */
-	public static GestionnaireCommande getSingletonGestComm() {
+	public static GestionnaireCommande getInstance() {
 		return GestionnaireCommandeSingleton;
 	}
 }

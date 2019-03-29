@@ -8,42 +8,18 @@ public class ZoomCommand implements Commande {
 	private int zoomLevel;
 	private int previousZoomLevel;
 	
-	public ZoomCommand(Image image, int zoomLevel, int imageHauteur, int imageLargeur) {
-		this.setImage(image);
-		this.zoomLevel = zoomLevel;
-	}
-	
-	public int getZoomLevel() {
-		return zoomLevel;
-	}
-
-	public void setZoomLevel(int zoomLevel) {
-		this.zoomLevel = zoomLevel;
-	}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
+	public ZoomCommand(Image image, int zoomLevel) {
 		this.image = image;
-	}
-	
-	public int getPreviousZoomLevel() {
-		return previousZoomLevel;
-	}
-
-	public void setPreviousZoomLevel(int previousZoomLevel) {
-		this.previousZoomLevel = previousZoomLevel;
+		this.zoomLevel = zoomLevel;
 	}
 
 	@Override
 	public void execute() {
-		this.getImage().setZoomLevel(this.zoomLevel);
+		this.image.setZoomLevel(this.zoomLevel);
 	}
 
 	@Override
 	public void undo() {
-		this.getImage().setZoomLevel(previousZoomLevel);
+		this.image.setZoomLevel(previousZoomLevel);
 	}
 }
