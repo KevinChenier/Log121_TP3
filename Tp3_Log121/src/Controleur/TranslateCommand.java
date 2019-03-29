@@ -1,46 +1,41 @@
 package Controleur;
 
+import Modele.Image;
+import Modele.Vector2;
+
 public class TranslateCommand implements Commande {
 
-	private int zoomLevel;
-	private int imageHauteur;
-	private int imageLargeur;
+	private Image image;
+	private Vector2 position;
+	
+	public TranslateCommand(Image image, Vector2 position) {
+		this.image = image;
+		this.position = position;
+	}
 
-	public void zoomer(int zoomLevel) {
-		
+	public Vector2 getPosition() {
+		return position;
+	}
+
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
-	public int getZoomLevel() {
-		return zoomLevel;
-	}
-
-
-	public void setZoomLevel(int zoomLevel) {
-		this.zoomLevel = zoomLevel;
-	}
-
-
-	public int getImageHauteur() {
-		return imageHauteur;
-	}
-
-
-	public void setImageHauteur(int imageHauteur) {
-		this.imageHauteur = imageHauteur;
-	}
-
-
-	public int getImageLargeur() {
-		return imageLargeur;
-	}
-
-
-	public void setImageLargeur(int imageLargeur) {
-		this.imageLargeur = imageLargeur;
+	@Override
+	public void execute() {
+		this.getImage().setPosition(this.position);
 	}
 
 	@Override
-	public void execute() {
+	public void undo() {
 		// TODO Auto-generated method stub
 		
 	}

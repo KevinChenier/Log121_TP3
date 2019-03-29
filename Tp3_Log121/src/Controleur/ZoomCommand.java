@@ -1,19 +1,15 @@
 package Controleur;
 
+import Modele.Image;
+
 public class ZoomCommand implements Commande {
 
+	private Image image;
 	private int zoomLevel;
-	private int imageHauteur;
-	private int imageLargeur;
 	
-	public ZoomCommand(int zoomLevel, int imageHauteur, int imageLargeur) {
+	public ZoomCommand(Image image, int zoomLevel, int imageHauteur, int imageLargeur) {
+		this.setImage(image);
 		this.zoomLevel = zoomLevel;
-		this.imageHauteur = imageHauteur;
-		this.imageLargeur = imageLargeur;
-	}
-
-	public void zoomer(int zoomLevel) {
-		
 	}
 	
 	public int getZoomLevel() {
@@ -24,26 +20,22 @@ public class ZoomCommand implements Commande {
 		this.zoomLevel = zoomLevel;
 	}
 
-	public int getImageHauteur() {
-		return imageHauteur;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setImageHauteur(int imageHauteur) {
-		this.imageHauteur = imageHauteur;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
-	public int getImageLargeur() {
-		return imageLargeur;
-	}
-
-	public void setImageLargeur(int imageLargeur) {
-		this.imageLargeur = imageLargeur;
-	}
-	
 	@Override
 	public void execute() {
+		this.getImage().setZoomLevel(this.zoomLevel);
+	}
+
+	@Override
+	public void undo() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
