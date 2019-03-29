@@ -28,6 +28,7 @@ public class GestionnaireCommande {
 			pileDeCommandeDesuete.add(vieilleCommande);
 		}
 	}
+	
 	/**
 	 * 
 	 * @param unecommande
@@ -39,11 +40,11 @@ public class GestionnaireCommande {
 			dernierUndo.execute();
 		}
 	}
+	
 	/**
 	 * 
 	 * @param uneCommande
 	 */
-	
 	public void executerCommande(Commande uneCommande) {
 		uneCommande.execute();
 		pileDeCommandes.push(uneCommande);

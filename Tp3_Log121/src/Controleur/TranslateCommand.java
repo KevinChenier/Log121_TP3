@@ -7,6 +7,7 @@ public class TranslateCommand implements Commande {
 
 	private Image image;
 	private Vector2 position;
+	private Vector2 previousPosition;
 	
 	public TranslateCommand(Image image, Vector2 position) {
 		this.image = image;
@@ -29,6 +30,14 @@ public class TranslateCommand implements Commande {
 		this.image = image;
 	}
 	
+	public Vector2 getPreviousPosition() {
+		return previousPosition;
+	}
+
+	public void setPreviousPosition(Vector2 previousPosition) {
+		this.previousPosition = previousPosition;
+	}
+	
 	@Override
 	public void execute() {
 		this.getImage().setPosition(this.position);
@@ -36,14 +45,7 @@ public class TranslateCommand implements Commande {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-		
+		this.getImage().setPosition(this.previousPosition);		
 	}
 	
 }
