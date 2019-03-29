@@ -23,7 +23,7 @@ public class GestionnaireCommande {
 	 */
 	public void undo(Commande uneCommande) {
 		Commande vieilleCommande = pileDeCommande.pop();
-		vieilleCommande.execute();
+		vieilleCommande.undo();
 		pileDeCommandeDesuete.add(vieilleCommande);
 		
 	}
@@ -32,7 +32,8 @@ public class GestionnaireCommande {
 	 * @param unecommande
 	 */
 	public void UndoDernierUndo(Commande unecommande) {
-		
+		Commande dernierUndo = pileDeCommandeDesuete.pop();
+		dernierUndo.execute();
 	}
 	/**
 	 * 
