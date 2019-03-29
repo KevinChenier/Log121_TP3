@@ -6,13 +6,12 @@ import java.util.Stack;
 public class GestionnaireCommande {
 	//SINGLETON
 	private static GestionnaireCommande GestionnaireCommandeSingleton = new GestionnaireCommande();
+	
 	//ATTRIBUTS 
-	Stack<Commande> pileDeCommande = new Stack<Commande>();	
+	Stack<Commande> pileDeCommandes = new Stack<Commande>();	
 	Stack<Commande> pileDeCommandeDesuete = new Stack<Commande>();	
 	
-	
-	
-	
+	private GestionnaireCommande() { }
 	
 	//METHODES
 	/**
@@ -22,18 +21,23 @@ public class GestionnaireCommande {
 	 * @param uneCommnade
 	 */
 	public void undo(Commande uneCommande) {
-		Commande vieilleCommande = pileDeCommande.pop();
-		vieilleCommande.undo();
-		pileDeCommandeDesuete.add(vieilleCommande);
 		
+		if(!pileDeCommandes.empty()) {
+			Commande vieilleCommande = pileDeCommandes.pop();
+			vieilleCommande.undo();
+			pileDeCommandeDesuete.add(vieilleCommande);
+		}
 	}
 	/**
 	 * 
 	 * @param unecommande
 	 */
 	public void UndoDernierUndo(Commande unecommande) {
-		Commande dernierUndo = pileDeCommandeDesuete.pop();
-		dernierUndo.execute();
+		
+		if(!pileDeCommandeDesuete.empty()) {
+			Commande dernierUndo = pileDeCommandeDesuete.pop();
+			dernierUndo.execute();
+		}
 	}
 	/**
 	 * 
@@ -42,13 +46,9 @@ public class GestionnaireCommande {
 	
 	public void executerCommande(Commande uneCommande) {
 		uneCommande.execute();
-		pileDeCommande.add(uneCommande);
+		pileDeCommandes.push(uneCommande);
 	}
 	
-	
-	//CONSTRUCTEURS
-	private GestionnaireCommande() {
-	}
 	//GETTER / SETTER
 	/**
 	 * Getteur de singleton GestionnaireCommande
