@@ -32,7 +32,7 @@ public class GestionnaireCommande {
 	 * @param unecommande
 	 */
 	public void UndoDernierUndo(Commande unecommande) {
-		
+	
 	}
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class GestionnaireCommande {
 	 * Getteur de singleton GestionnaireCommande
 	 * @return
 	 */
-	public static GestionnaireCommande getSingletonGestComm() {
+	public static GestionnaireCommande getInstance() {
 		return GestionnaireCommandeSingleton;
 	}
 }
