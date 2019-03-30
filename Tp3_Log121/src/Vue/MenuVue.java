@@ -37,8 +37,8 @@ public class MenuVue extends JMenuBar {
 	private JMenu menuEdit;
 	private JMenuItem openImage;
 	private JMenuItem saveImage;
-	private JMenuItem menuUndo1;
-	private JMenuItem menuUndo2;
+	private JMenuItem menuUndo;
+	private JMenuItem menuRedo;
 
 	private final JFileChooser choicedFile = new JFileChooser();
 	private File file;
@@ -72,14 +72,14 @@ public class MenuVue extends JMenuBar {
 
 		openImage = new JMenuItem("Open Image");
 		saveImage = new JMenuItem("Save Images");
-		menuUndo1 = new JMenuItem("Undo1");
-		menuUndo2 = new JMenuItem("Undo2");
+		menuUndo = new JMenuItem("Undo");
+		menuRedo = new JMenuItem("Redo");
 
 		menuFile.add(openImage);
 		menuFile.add(saveImage);
 
-		menuEdit.add(menuUndo1);
-		menuEdit.add(menuUndo2);
+		menuEdit.add(menuUndo);
+		menuEdit.add(menuRedo);
 	}
 
 	/*
@@ -91,61 +91,62 @@ public class MenuVue extends JMenuBar {
 
 		openImage.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				openImageActionPerformed(evt);
+				try {
+					openImageActionPerformed(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				
 			}
 		});
 
 		saveImage.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				saveImageActionPerformed(evt);
+				try {
+					saveImageActionPerformed(evt);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
-		menuUndo1.addActionListener(new java.awt.event.ActionListener() {
+		menuUndo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				undo1ActionPerformed(evt);
+				undoActionPerformed(evt);
 			}
 		});
 
-		menuUndo2.addActionListener(new java.awt.event.ActionListener() {
+		menuRedo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				undo1ActionPerformed(evt);
+				redoActionPerformed(evt);
 			}
 		});
 
 	}
 
-	private void openImageActionPerformed(java.awt.event.ActionEvent evt) {
-
+	private void openImageActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
 		choicedFile.showOpenDialog(this);
 		file = choicedFile.getSelectedFile();
+		perspectiveControleur.setImages(file);
 
-		try {
-			perspectiveControleur.setImages(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		System.out.println(choicedFile.getSelectedFile().getName() + " succesfully loaded!");
-
 	}
 
-	private void saveImageActionPerformed(java.awt.event.ActionEvent evt) {
+	private void saveImageActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, IOException {
 		 choicedFile.showOpenDialog(this);
          file = choicedFile.getSelectedFile();
-         try {
-			save.chargerUnFichier(file, perspectiveControleur);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+         save.chargerUnFichier(file, perspectiveControleur);
+
 	}
 
-	private void undo1ActionPerformed(java.awt.event.ActionEvent evt) {
+	private void undoActionPerformed(java.awt.event.ActionEvent evt) {
 		commande.undo();
+	}
+	
+	private void redoActionPerformed(java.awt.event.ActionEvent evt) {
+		commande.redo();
 	}
 
 }

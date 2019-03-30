@@ -22,14 +22,15 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Controleur.GestionnaireCommande;
 import Controleur.PerspectiveControleur;
 import Modele.PerspectiveImage;
 
 public class CadrePrincipale extends JFrame {
 
 	// Bouton pour utiliser undo
-	private JButton undo1;
-	private JButton undo2;
+	private JButton undo;
+	private JButton redo;
 
 	// Label qui designe l'image principale
 	private JLabel nameMainImage;
@@ -40,6 +41,7 @@ public class CadrePrincipale extends JFrame {
 	private Onglet rightPersceptive;
 	private Onglet leftPersceptive;
 
+	private GestionnaireCommande commande;
 	private PerspectiveControleur perspectiveControleur;
 
 	/**
@@ -48,6 +50,8 @@ public class CadrePrincipale extends JFrame {
 	public CadrePrincipale() {
 		this.perspectiveControleur = new PerspectiveControleur();
 
+		this.commande = GestionnaireCommande.getInstance();
+		
 		initComponents();
 		initPerspectives();
 		this.setJMenuBar(new MenuVue(perspectiveControleur));
@@ -67,8 +71,8 @@ public class CadrePrincipale extends JFrame {
 	private void initComponents() {
 
 		panneauPrincipal = new JPanel();
-		undo1 = new JButton();
-		undo2 = new JButton(); 
+		undo = new JButton();
+		redo = new JButton(); 
 
 		nameMainImage = new JLabel();
 
@@ -85,17 +89,17 @@ public class CadrePrincipale extends JFrame {
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		undo1.setText("Undo1");
-		undo1.addActionListener(new java.awt.event.ActionListener() {
+		undo.setText("Undo");
+		undo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				undo1ActionPerformed(evt);
+				undoActionPerformed(evt);
 			}
 		});
 
-		undo2.setText("Undo2");
-		undo2.addActionListener(new java.awt.event.ActionListener() {
+		redo.setText("Redo");
+		redo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				undo2ActionPerformed(evt);
+				redoActionPerformed(evt);
 			}
 		});
 
@@ -136,10 +140,10 @@ public class CadrePrincipale extends JFrame {
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addGroup(GroupLayout.Alignment.TRAILING,
-						layout.createSequentialGroup().addGap(117, 117, 117).addComponent(undo1)
+						layout.createSequentialGroup().addGap(117, 117, 117).addComponent(undo)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)
-								.addComponent(undo2).addGap(117, 117, 117))
+								.addComponent(redo).addGap(117, 117, 117))
 				.addGroup(layout.createSequentialGroup().addGap(48, 48, 48)
 						.addComponent(leftPersceptive, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE)
@@ -167,7 +171,7 @@ public class CadrePrincipale extends JFrame {
 						.addComponent(leftPersceptive, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE))
 				.addGap(18, 18, 18).addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(undo2).addComponent(undo1))
+						.addComponent(redo).addComponent(undo))
 				.addContainerGap(114, Short.MAX_VALUE)));
 
 		pack();
@@ -194,12 +198,12 @@ public class CadrePrincipale extends JFrame {
 
 	} 
 
-	private void undo1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// gestionnaireCommandes.undo();
+	private void undoActionPerformed(java.awt.event.ActionEvent evt) {
+		commande.undo();
 	}
 
-	private void undo2ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
+	private void redoActionPerformed(java.awt.event.ActionEvent evt) {
+		commande.redo();
 	}
 
 	/**
