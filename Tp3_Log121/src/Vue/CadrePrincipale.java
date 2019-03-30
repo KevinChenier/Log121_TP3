@@ -68,7 +68,7 @@ public class CadrePrincipale extends JFrame {
 
 		panneauPrincipal = new JPanel();
 		undo1 = new JButton();
-		undo2 = new JButton();
+		undo2 = new JButton(); 
 
 		nameMainImage = new JLabel();
 
@@ -192,7 +192,7 @@ public class CadrePrincipale extends JFrame {
 		
 		perspectiveControleur.setImages(imagePerspectives);
 
-	}
+	} 
 
 	private void undo1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// gestionnaireCommandes.undo();

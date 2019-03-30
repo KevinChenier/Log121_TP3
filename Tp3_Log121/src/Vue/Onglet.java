@@ -39,12 +39,15 @@ public class Onglet extends JPanel implements Observer {
 
 	public Onglet(int IDOnglet, PerspectiveControleur perspectiveController) {
 
+		this.setLayout(null);
+		this.add(imageView);
+		
 		this.addMouseWheelListener(e -> {
 			perspectiveController.zoomer(IDOnglet, -e.getWheelRotation());
 		});
 
 		this.addMouseListener(new MouseAdapter() {
-
+ 
 			/**
 			 * Le point inital lors d'un "click and drag"
 			 */
@@ -63,6 +66,7 @@ public class Onglet extends JPanel implements Observer {
 				perspectiveController.translate(IDOnglet, initialPoint.addVector(finalPoint.oppositeVector()).oppositeVector());
 			}
 		});
+		this.setVisible(true);
 	}
 
 	/**
