@@ -1,14 +1,14 @@
 package Controleur;
 
-import Modele.Image;
+import Modele.PerspectiveImage;
 
 public class ZoomCommand implements Commande {
 
-	private Image image;
+	private PerspectiveImage image;
 	private int zoomLevel;
 	private int previousZoomLevel;
 	
-	public ZoomCommand(Image image, int zoomLevel) {
+	public ZoomCommand(PerspectiveImage image, int zoomLevel) {
 		this.image = image;
 		this.zoomLevel = zoomLevel;
 	}

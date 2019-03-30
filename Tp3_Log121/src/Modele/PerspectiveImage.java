@@ -2,7 +2,7 @@ package Modele;
 
 import java.awt.image.BufferedImage;
 
-public class Image extends Observable{
+public class PerspectiveImage extends Observable{
 
 	private static final int DEFAULT_ZOOM = 1;
 	
@@ -12,7 +12,7 @@ public class Image extends Observable{
 	
 	private Vector2 position;
 	
-	public Image() {
+	public PerspectiveImage() {
 		this.zoomLevel = DEFAULT_ZOOM;
 		this.position = Vector2.zero;
 	}

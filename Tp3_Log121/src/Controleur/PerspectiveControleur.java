@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
-import Modele.Image;
+import Modele.PerspectiveImage;
 import Modele.Vector2;
 
 /**
@@ -16,7 +16,7 @@ public class PerspectiveControleur {
 
     private final GestionnaireCommande gestionnaireCommande = GestionnaireCommande.getInstance();
 
-    private ArrayList<Image> perspectivesImages;
+    private ArrayList<PerspectiveImage> perspectivesImages;
 
     /**
      * Methode qui permet de setter les perspectives des images.
@@ -28,7 +28,7 @@ public class PerspectiveControleur {
         
     	int index = 0;
     	
-    	for(Image image : perspectivesImages) {
+    	for(PerspectiveImage image : perspectivesImages) {
         	image.setImage(bufferedImage);
         	image.setZoomLevel(zooms[index]);
         	image.setPosition(vectors[index]);
@@ -48,7 +48,7 @@ public class PerspectiveControleur {
         	BufferedImage bufferedImage = ImageIO.read(file);
 
         	//On set les 3 images selon le fichiers.
-            for(Image image : this.perspectivesImages) {
+            for(PerspectiveImage image : this.perspectivesImages) {
                 image.setImage(bufferedImage);
             }
         }
@@ -85,7 +85,7 @@ public class PerspectiveControleur {
      *
      * @param imagePerspectives La nouvelle liste de perspectives
      */
-    public void setImages(ArrayList<Image> imagePerspectives) {
+    public void setImages(ArrayList<PerspectiveImage> imagePerspectives) {
         this.perspectivesImages = imagePerspectives;
     }
 
@@ -94,7 +94,7 @@ public class PerspectiveControleur {
      *
      * @return imagePerspective La liste d'images perspectives
      */
-    public ArrayList<Image> getImages() {
+    public ArrayList<PerspectiveImage> getImages() {
         return this.perspectivesImages;
     }
 }

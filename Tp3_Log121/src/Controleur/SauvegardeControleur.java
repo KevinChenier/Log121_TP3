@@ -1,6 +1,6 @@
 package Controleur;
 
-import Modele.Image;
+import Modele.PerspectiveImage;
 import Modele.SauvegardePerspective;
 import Modele.Vector2;
 
@@ -30,14 +30,14 @@ public class SauvegardeControleur {
      * @param images la liste de perspectives à sérialiser
      * @throws IOException 
      */
-    public void sauvegarderFichier(ArrayList<Image> images) throws IOException {
+    public void sauvegarderFichier(ArrayList<PerspectiveImage> images) throws IOException {
     	
         Vector2 vectors[] = new Vector2[images.size()];
         int zooms[] = new int[images.size()];
         
         int index = 0;
         
-        for(Image image : images) {
+        for(PerspectiveImage image : images) {
         	vectors[index] = image.getPosition();
         	zooms[index] = image.getZoomLevel();
         	index++;

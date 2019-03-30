@@ -1,15 +1,15 @@
 package Controleur;
 
-import Modele.Image;
+import Modele.PerspectiveImage;
 import Modele.Vector2;
 
 public class TranslateCommand implements Commande {
 
-	private Image image;
+	private PerspectiveImage image;
 	private Vector2 position;
 	private Vector2 previousPosition;
 	
-	public TranslateCommand(Image image, Vector2 position) {
+	public TranslateCommand(PerspectiveImage image, Vector2 position) {
 		this.image = image;
 		this.position = position;
 	}
