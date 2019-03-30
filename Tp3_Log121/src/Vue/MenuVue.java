@@ -18,29 +18,48 @@ Historique des modifications
 package Vue;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 
+import Controleur.GestionnaireCommande;
+import Controleur.PerspectiveControleur;
+import Controleur.SauvegardeControleur;
+
 public class MenuVue extends JMenuBar {
 
+	/**
+	 * Le chemin par défaut pour ouvrir une image
+	 */
+	private static final String PATH = System.getProperty("user.dir") + File.separator + "images_test";
+
 	private JMenu menuFile;
-	private JMenu menuEdit; 
+	private JMenu menuEdit;
 	private JMenuItem openImage;
 	private JMenuItem saveImage;
 	private JMenuItem menuUndo1;
 	private JMenuItem menuUndo2;
 
-	private JFileChooser openFile;
-	
+	private final JFileChooser choicedFile = new JFileChooser();
+	private File file;
+
+	private PerspectiveControleur perspectiveControleur;
+	private SauvegardeControleur save;
+	private final GestionnaireCommande commande;
+
 	/*
 	 * Constructeur de la classe MenuVue
 	 */
-	public MenuVue() {
-		initComponents();
+	public MenuVue(PerspectiveControleur perspectiveControleur) {
 
+		save = new SauvegardeControleur();
+		commande = GestionnaireCommande.getInstance();
+		this.perspectiveControleur = perspectiveControleur;
+
+		initComponents();
 		initEvents();
-		this.add(menuEdit);
 		this.add(menuFile);
+		this.add(menuEdit);
 	}
 
 	/*
@@ -67,6 +86,9 @@ public class MenuVue extends JMenuBar {
 	 * Initialisation de tout les comportements des items
 	 */
 	private void initEvents() {
+
+		choicedFile.setCurrentDirectory(new File(PATH));
+
 		openImage.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				openImageActionPerformed(evt);
@@ -91,28 +113,40 @@ public class MenuVue extends JMenuBar {
 			}
 		});
 
-	} 
+	}
 
 	private void openImageActionPerformed(java.awt.event.ActionEvent evt) {
-		openFile = new JFileChooser();
-		openFile.setCurrentDirectory(new File("./images"));
 
-		if (openFile.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
-			String filename = openFile.getSelectedFile().getPath();
+		choicedFile.showOpenDialog(this);
+		file = choicedFile.getSelectedFile();
 
-			/*
-			 * sourceImagePanel.setImage(filename); leftPersceptive.put.setImage(filename);
-			 */
-			System.out.println(openFile.getSelectedFile().getName() + " succesfully loaded!");
+		try {
+			perspectiveControleur.setImages(file);
+		} catch (IOException e) {
+ 
+			e.printStackTrace();
 		}
+
+		System.out.println(choicedFile.getSelectedFile().getName() + " succesfully loaded!");
+
 	}
 
 	private void saveImageActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
+		 choicedFile.showOpenDialog(this);
+         file = choicedFile.getSelectedFile();
+         try {
+			save.chargerUnFichier(file, perspectiveControleur);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void undo1ActionPerformed(java.awt.event.ActionEvent evt) {
-		// gestionnaireCommandes.undo();
+		//commande.undo();
 	}
 
 }

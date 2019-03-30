@@ -46,10 +46,10 @@ public class PerspectiveControleur {
     	//Si le fichier est valide.
         if (file != null) {
         	BufferedImage bufferedImage = ImageIO.read(file);
-
-        	//On set les 3 images selon le fichiers.
+ 
+        	//On set les 3 images selon le fichier.
             for(PerspectiveImage image : this.perspectivesImages) {
-                image.setImage(bufferedImage);
+                image.setImage(bufferedImage); 
             }
         }
     }

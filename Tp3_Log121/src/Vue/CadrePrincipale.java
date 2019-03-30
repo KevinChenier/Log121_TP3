@@ -18,17 +18,20 @@ Historique des modifications
 
 package Vue;
 
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import Controleur.PerspectiveControleur;
+import Modele.PerspectiveImage;
 
 public class CadrePrincipale extends JFrame {
 
 	// Bouton pour utiliser undo
 	private JButton undo1;
 	private JButton undo2;
-	
-	// Label qui designe l'image principale 
+
+	// Label qui designe l'image principale
 	private JLabel nameMainImage;
 
 	private JPanel panneauPrincipal;
@@ -37,15 +40,17 @@ public class CadrePrincipale extends JFrame {
 	private Onglet rightPersceptive;
 	private Onglet leftPersceptive;
 
-	private PerspectiveControleur perspectiveController;
+	private PerspectiveControleur perspectiveControleur;
 
 	/**
 	 * Creates new form NewJFrame
 	 */
 	public CadrePrincipale() {
-		perspectiveController = new PerspectiveControleur();
+		this.perspectiveControleur = new PerspectiveControleur();
+
 		initComponents();
-		this.setJMenuBar(new MenuVue());
+		initPerspectives();
+		this.setJMenuBar(new MenuVue(perspectiveControleur));
 		this.setVisible(true);
 	}
 
@@ -64,12 +69,12 @@ public class CadrePrincipale extends JFrame {
 		panneauPrincipal = new JPanel();
 		undo1 = new JButton();
 		undo2 = new JButton();
-		
+
 		nameMainImage = new JLabel();
 
-		mainImage = new Onglet(0, perspectiveController);
-		rightPersceptive = new Onglet(1, perspectiveController);
-		leftPersceptive = new Onglet(2, perspectiveController);
+		mainImage = new Onglet(0, perspectiveControleur);
+		rightPersceptive = new Onglet(1, perspectiveControleur);
+		leftPersceptive = new Onglet(2, perspectiveControleur);
 
 		GroupLayout jPanel1Layout = new GroupLayout(panneauPrincipal);
 		panneauPrincipal.setLayout(jPanel1Layout);
@@ -165,8 +170,29 @@ public class CadrePrincipale extends JFrame {
 						.addComponent(undo2).addComponent(undo1))
 				.addContainerGap(114, Short.MAX_VALUE)));
 
-		pack(); 
+		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	/*
+	 * Initilise les perspective avec son controlleur
+	 */
+	private void initPerspectives() {
+		ArrayList<PerspectiveImage> imagePerspectives = new ArrayList<>(3);
+		PerspectiveImage imageCenter = new PerspectiveImage();
+		PerspectiveImage imageRight = new PerspectiveImage();
+		PerspectiveImage imageLeft = new PerspectiveImage();
+
+		imageCenter.attach(mainImage);
+		imageRight.attach(rightPersceptive);
+		imageLeft.attach(leftPersceptive);
+
+		imagePerspectives.add(imageCenter);
+		imagePerspectives.add(imageRight);
+		imagePerspectives.add(imageLeft);
+		
+		perspectiveControleur.setImages(imagePerspectives);
+
+	}
 
 	private void undo1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// gestionnaireCommandes.undo();
@@ -208,13 +234,13 @@ public class CadrePrincipale extends JFrame {
 		} catch (UnsupportedLookAndFeelException ex) {
 			java.util.logging.Logger.getLogger(CadrePrincipale.class.getName()).log(java.util.logging.Level.SEVERE,
 					null, ex);
-		}
+		} 
 		// </editor-fold>
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new CadrePrincipale().setVisible(true);
+				new CadrePrincipale();
 			}
 		});
 	}

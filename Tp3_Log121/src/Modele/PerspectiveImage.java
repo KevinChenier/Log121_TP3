@@ -23,7 +23,8 @@ public class PerspectiveImage extends Observable{
 
 	public void setImage(BufferedImage image) {
 		this.image = image;
-	}
+		notifyObservers(); 
+	} 
 
 	public int getZoomLevel() {
 		return zoomLevel;

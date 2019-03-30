@@ -22,12 +22,12 @@ import javax.imageio.ImageIO;
  */
 public class SauvegardeControleur {
 
-	private final static String FILE_EXTENSION = "sp";
+	private final static String FILE_EXTENSION = "ps";
 
     /**
      * Cette methode permet de sauvegarder une perspective en fichier.
      *
-     * @param images la liste de perspectives à sérialiser
+     * @param images la liste de perspectives à sérialiser 
      * @throws IOException 
      */
     public void sauvegarderFichier(ArrayList<PerspectiveImage> images) throws IOException {
