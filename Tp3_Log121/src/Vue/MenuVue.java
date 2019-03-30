@@ -92,6 +92,7 @@ public class MenuVue extends JMenuBar {
 		openImage.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				openImageActionPerformed(evt);
+				
 			}
 		});
 
@@ -123,10 +124,8 @@ public class MenuVue extends JMenuBar {
 		try {
 			perspectiveControleur.setImages(file);
 		} catch (IOException e) {
- 
 			e.printStackTrace();
 		}
-
 		System.out.println(choicedFile.getSelectedFile().getName() + " succesfully loaded!");
 
 	}
@@ -146,7 +145,7 @@ public class MenuVue extends JMenuBar {
 	}
 
 	private void undo1ActionPerformed(java.awt.event.ActionEvent evt) {
-		//commande.undo();
+		commande.undo();
 	}
 
 }

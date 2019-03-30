@@ -26,7 +26,7 @@ public class Vector2 {
 	}
 	
 	public Vector2 addVector(Vector2 vector) {
-		return new Vector2(this.x + vector.x, this.y + vector.y);
+		return new Vector2(this.x + vector.getX(), this.y + vector.getY());
 	}
 	
 	public Vector2 oppositeVector() {

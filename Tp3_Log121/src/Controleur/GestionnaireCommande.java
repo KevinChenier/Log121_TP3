@@ -1,43 +1,38 @@
 package Controleur;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class GestionnaireCommande {
-	//SINGLETON
+
 	private static GestionnaireCommande GestionnaireCommandeSingleton = new GestionnaireCommande();
 	
-	//ATTRIBUTS 
-	Stack<Commande> pileDeCommandes = new Stack<Commande>();	
-	Stack<Commande> pileDeCommandeDesuete = new Stack<Commande>();	
+	Stack<Commande> commandesExecutees = new Stack<Commande>();	
+	Stack<Commande> commandesDefaites = new Stack<Commande>();	
 	
 	private GestionnaireCommande() { }
 	
-	//METHODES
 	/**
-	 * Il est important de noter que nous ne faisons que reexcuter une commande. Cela ne retourne pas exactement l'etat rechercher.
-	 * A voir comment resoudre cela
-	 * @see Commande#execute()
-	 * @param uneCommnade
+	 * Annuler la derniere commande.
 	 */
-	public void undo(Commande uneCommande) {
+	public void undo() {
 		
-		if(!pileDeCommandes.empty()) {
-			Commande vieilleCommande = pileDeCommandes.pop();
+		if(!commandesExecutees.empty()) {
+			Commande vieilleCommande = commandesExecutees.pop();
 			vieilleCommande.undo();
-			pileDeCommandeDesuete.add(vieilleCommande);
+			commandesDefaites.push(vieilleCommande);
 		}
 	}
 	
 	/**
-	 * 
+	 * Refaire une commande qui a ete undo
 	 * @param unecommande
 	 */
-	public void UndoDernierUndo(Commande unecommande) {
+	public void redo() {
 		
-		if(!pileDeCommandeDesuete.empty()) {
-			Commande dernierUndo = pileDeCommandeDesuete.pop();
+		if(!commandesDefaites.empty()) {
+			Commande dernierUndo = commandesDefaites.pop();
 			dernierUndo.execute();
+			commandesExecutees.push(dernierUndo);
 		}
 	}
 	
@@ -47,10 +42,10 @@ public class GestionnaireCommande {
 	 */
 	public void executerCommande(Commande uneCommande) {
 		uneCommande.execute();
-		pileDeCommandes.push(uneCommande);
+		commandesExecutees.push(uneCommande);
+		commandesDefaites.clear();
 	}
 	
-	//GETTER / SETTER
 	/**
 	 * Getteur de singleton GestionnaireCommande
 	 * @return

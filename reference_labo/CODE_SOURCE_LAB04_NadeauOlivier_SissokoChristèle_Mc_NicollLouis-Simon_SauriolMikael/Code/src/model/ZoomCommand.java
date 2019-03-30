@@ -40,11 +40,11 @@ public class ZoomCommand extends Command {
      * zoom
      * @param zoomTotal Entier représentant le nouveau zoom total
      */
-    public ZoomCommand(ImagePerspective imagePerspective, int zoomTotal) {
+    public ZoomCommand(ImagePerspective imagePerspective, int zoomLevel) {
         super(imagePerspective);
 
-        previousZoomLevel = imagePerspective.getZoomLevel();
-        zoomLevel = zoomTotal;
+        this.previousZoomLevel = imagePerspective.getZoomLevel();
+        this.zoomLevel = zoomLevel;
     }
 
     /**
@@ -56,11 +56,11 @@ public class ZoomCommand extends Command {
     }
 
     /**
-     * Rétabli l'ancien niveau de zoom.
+     * Refait le dernier niveau de zoom.
      */
     @Override
     public void undo() {
-        getImagePerspective().setZoomLevel(previousZoomLevel);
+        getImagePerspective().setZoomLevel(this.previousZoomLevel);
     }
 
 }

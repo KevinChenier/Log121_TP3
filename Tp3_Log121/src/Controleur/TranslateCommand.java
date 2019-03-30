@@ -6,22 +6,24 @@ import Modele.Vector2;
 public class TranslateCommand implements Commande {
 
 	private PerspectiveImage image;
-	private Vector2 position;
-	private Vector2 previousPosition;
+	private Vector2 newPosition;
 	
-	public TranslateCommand(PerspectiveImage image, Vector2 position) {
+	public TranslateCommand(PerspectiveImage image, Vector2 newPosition) {
 		this.image = image;
-		this.position = position;
+		this.newPosition = newPosition;
 	}
 	
 	@Override
 	public void execute() {
-		this.image.setPosition(this.position);
+		Vector2 currentImagePosition = this.image.getPosition();
+		Vector2 addedPosition = currentImagePosition.addVector(this.newPosition);
+		this.image.setPosition(addedPosition);
 	}
 
 	@Override
 	public void undo() {
-		this.image.setPosition(this.previousPosition);		
+		Vector2 currentImagePosition = this.image.getPosition();
+		Vector2 revertImagePosition = currentImagePosition.addVector(this.newPosition.oppositeVector());
+		this.image.setPosition(revertImagePosition);	
 	}
-	
 }

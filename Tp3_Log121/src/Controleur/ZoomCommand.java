@@ -10,6 +10,7 @@ public class ZoomCommand implements Commande {
 	
 	public ZoomCommand(PerspectiveImage image, int zoomLevel) {
 		this.image = image;
+		this.previousZoomLevel = image.getZoomLevel();
 		this.zoomLevel = zoomLevel;
 	}
 
