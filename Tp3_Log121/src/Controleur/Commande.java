@@ -1,9 +1,9 @@
 package Controleur;
+
 /**
+ * Interface utilisee pour faire le patron Commande.
+ * @author Laurent Sieu 
  * 
- * @author laurent sieu 
- * @see GestionnaireCommande
- *
  */
 public interface Commande {
 	/**

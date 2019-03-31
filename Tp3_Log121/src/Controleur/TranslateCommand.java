@@ -3,6 +3,11 @@ package Controleur;
 import Modele.PerspectiveImage;
 import Modele.Vector2;
 
+/**
+ * La commande qui permet de faire une translation sur une image.
+ * @author Kevin Chenier
+ *
+ */
 public class TranslateCommand implements Commande {
 
 	private PerspectiveImage image;

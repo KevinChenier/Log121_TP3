@@ -3,12 +3,12 @@ Cours:   LOG121
 Session: H2019
 Groupe:  04
 Projet: Laboratoire #3
-Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chénier, Laurent Sieu
+Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chenier, Laurent Sieu
               
               
 Professeur : Ghizlane El Boussaidi
 Nom du fichier: Onglet.java
-Date créé: 2019-03-25
+Date cree: 2019-03-25
 Date dern. modif. 2019-03-25
 *******************************************************
 Historique des modifications
@@ -30,6 +30,11 @@ import Modele.Observable;
 import Modele.Observer;
 import Controleur.PerspectiveControleur;
 
+/**
+ * Classe representant les espaces ou les images vont etre affichees.
+ * @author Eugene Wiafe, Ian Garcia-Guerrero
+ *
+ */
 public class Onglet extends JPanel implements Observer {
 
 	private static final int MINIMUM_HEIGHT_AND_WIDTH = 1;
@@ -81,36 +86,29 @@ public class Onglet extends JPanel implements Observer {
 	}
 
 	/**
-	 * Cette methode permet d'appliquer les changements suite a� une tranlation
-	 *
-	 * @param srcImg
-	 *            L'image a� afficher
-	 * @param w
-	 *            La largeur de l'image
-	 * @param h
-	 *            La hauteur de l'image
-	 * @param translatedX
-	 *            La translation en X
-	 * @param translatedY
-	 *            La translation en Y
-	 * @return L'image modifiee sous forme d'Icon
+	 * Methode appelee lorsque une image est modifie par translation ou par zoom.
+	 * @param imageModifiee, image qui doit etre modifiee.
+	 * @param largeur, la largeur de une image modifiee.
+	 * @param hauteur, la hauteur de une image modifiee.
+	 * @param x, la position en x.
+	 * @param y, la position en y.
+	 * @return une nouvelle image modifiee.
 	 */
-	private Icon modifieImage(BufferedImage srcImg, int w, int h, int translatedX, int translatedY) {
-		BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+	private Icon modifieImage(BufferedImage imageModifiee, int largeur, int hauteur, int x, int y) {
+		BufferedImage resizedImg = new BufferedImage(largeur, hauteur, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = resizedImg.createGraphics();
 
 		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2.drawImage(srcImg, translatedX, translatedY, w, h, null);
+		g2.drawImage(imageModifiee, x, y, largeur, hauteur, null);
 		g2.dispose();
 
 		return new ImageIcon(resizedImg);
 	}
 
 	/**
-	 * Applique le niveau de zoom a l'image.
+	 * Applique le niveau de zoom a une image.
 	 *
-	 * @param Observable
-	 *            Le model observe ayant besoin d'etre redessinne
+	 * @param Observable, le modele observe ayant besoin d'etre redessinne.
 	 */
 	private void setZoom(Observable observable) {
 		PerspectiveImage imagePerspective = (PerspectiveImage) observable;
@@ -119,6 +117,7 @@ public class Onglet extends JPanel implements Observer {
 		BufferedImage image = imagePerspective.getImage();
 		Vector2 finalTranslation = imagePerspective.getPosition();
 
+		// Si le zoom est plus petit que 0, on applique une reduction de la perspective
 		if (zoomLevel < 0) {
 			zoomLevel = 1 / Math.abs(zoomLevel);
 		} else if (zoomLevel == 0) {

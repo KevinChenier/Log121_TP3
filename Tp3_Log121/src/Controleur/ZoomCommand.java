@@ -2,6 +2,11 @@ package Controleur;
 
 import Modele.PerspectiveImage;
 
+/**
+ * La commande qui permet de faire un zoom sur une image.
+ * @author Laurent Sieu
+ *
+ */
 public class ZoomCommand implements Commande {
 
 	private PerspectiveImage image;

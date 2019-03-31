@@ -2,11 +2,18 @@ package Controleur;
 
 import java.util.Stack;
 
+/**
+ * Classe qui permet de gerer les commandes.
+ * @author Laurent Sieu, Kevin Chenier
+ *
+ */
 public class GestionnaireCommande {
 
 	private static GestionnaireCommande GestionnaireCommandeSingleton = new GestionnaireCommande();
 	
+	// Tous les commandes qui ont ete executees depuis le debut
 	Stack<Commande> commandesExecutees = new Stack<Commande>();	
+	// Les commande qui ont ete "undone", utilisee pour le redo
 	Stack<Commande> commandesDefaites = new Stack<Commande>();	
 	
 	private GestionnaireCommande() { }
@@ -24,7 +31,7 @@ public class GestionnaireCommande {
 	}
 	
 	/**
-	 * Refaire une commande qui a ete undo
+	 * Refaire une commande qui a ete undo.
 	 * @param unecommande
 	 */
 	public void redo() {
@@ -37,7 +44,7 @@ public class GestionnaireCommande {
 	}
 	
 	/**
-	 * 
+	 * Executer une commande.
 	 * @param uneCommande
 	 */
 	public void executerCommande(Commande uneCommande) {
@@ -47,8 +54,8 @@ public class GestionnaireCommande {
 	}
 	
 	/**
-	 * Getteur de singleton GestionnaireCommande
-	 * @return
+	 * Getteur de singleton de GestionnaireCommande.
+	 * @return l'instance unique.
 	 */
 	public static GestionnaireCommande getInstance() {
 		return GestionnaireCommandeSingleton;

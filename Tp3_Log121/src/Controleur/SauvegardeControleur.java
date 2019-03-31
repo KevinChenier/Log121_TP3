@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
- * Cette classe permet de faire le traitement de sauvegarde sur l'image et la perspective
+ * Cette classe permet de faire le traitement de sauvegarde sur l'image et la perspective.
+ * @author Kevin Chenier
+ * 
  */
 public class SauvegardeControleur {
 
@@ -27,7 +29,7 @@ public class SauvegardeControleur {
     /**
      * Cette methode permet de sauvegarder une perspective en fichier.
      *
-     * @param images la liste de perspectives à sérialiser 
+     * @param images, la liste de perspectives a serialisee.
      * @throws IOException 
      */
     public void sauvegarderFichier(ArrayList<PerspectiveImage> images) throws IOException {
@@ -37,6 +39,7 @@ public class SauvegardeControleur {
         
         int index = 0;
         
+        // On va rechercher toutes les perspectives
         for(PerspectiveImage image : images) {
         	vectors[index] = image.getPosition();
         	zooms[index] = image.getZoomLevel();
@@ -63,8 +66,8 @@ public class SauvegardeControleur {
     /**
      * Cette methode permet de charger un fichier contenant une image et une perspective.
      *
-     * @param file, le fichier que l'on peut charger
-     * @param perspectiveController, le controlleur de la perspective
+     * @param file, le fichier que l'on peut charger.
+     * @param perspectiveController, le controlleur de la perspective.
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
@@ -72,7 +75,7 @@ public class SauvegardeControleur {
     	
     	String filePath = file.getAbsolutePath();
             
-        // If the file extension is FILE_EXTENSION, then load the file.
+        // Si l'extension du fichier est FILE_EXTENSION, alors on peut charger le fichier et le traiter
         if(filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length()).equals(FILE_EXTENSION)) {
             	
         	FileInputStream fileInput = new FileInputStream(file);
@@ -81,7 +84,7 @@ public class SauvegardeControleur {
             SauvegardePerspective perspectiveSauvegardee = (SauvegardePerspective) inputObject.readObject();
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(perspectiveSauvegardee.getImageBytes()));
                 
-            int[] zooms = perspectiveSauvegardee.getZooms();
+            int[] zooms = perspectiveSauvegardee.getZoomLevels();
             Vector2[] vectors = perspectiveSauvegardee.getVectors();
                 
             inputObject.close();

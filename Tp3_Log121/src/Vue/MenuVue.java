@@ -3,12 +3,12 @@ Cours:   LOG121
 Session: H2019
 Groupe:  04
 Projet: Laboratoire #3
-Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chénier, Laurent Sieu
+Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chenier, Laurent Sieu
               
               
 Professeur : Ghizlane El Boussaidi
 Nom du fichier: MenuVue.java
-Date créé: 2019-03-25
+Date cree: 2019-03-25
 Date dern. modif. 2019-03-25
 *******************************************************
 Historique des modifications
@@ -26,11 +26,16 @@ import Controleur.GestionnaireCommande;
 import Controleur.PerspectiveControleur;
 import Controleur.SauvegardeControleur;
 
+/**
+ * Cette classe represente le menu deroulant qui permet a l'utilisateur d'ouvrir une image,
+ * de sauvegarder des perspectives, de charger des perspectives ou meme de Undo/Redo des
+ * commandes.
+ * @author Eugene Wiafe, Ian Garcia-Guerrero
+ *
+ */
 public class MenuVue extends JMenuBar {
 
-	/**
-	 * Le chemin par défaut pour ouvrir une image
-	 */
+	// Le chemin par defaut pour ouvrir une image
 	private static final String PATH = System.getProperty("user.dir") + File.separator + "images_test";
 
 	private JMenu menuFile;
@@ -48,26 +53,20 @@ public class MenuVue extends JMenuBar {
 	private SauvegardeControleur save;
 	private final GestionnaireCommande commande;
 
-	/*
-	 * Constructeur de la classe MenuVue
-	 */
 	public MenuVue(PerspectiveControleur perspectiveControleur) {
-
 		save = new SauvegardeControleur();
 		commande = GestionnaireCommande.getInstance();
 		this.perspectiveControleur = perspectiveControleur;
-
 		initComponents();
 		initEvents();
 		this.add(menuFile);
 		this.add(menuEdit);
 	}
 
-	/*
-	 * Initialisation des menus et des items des menus
+	/**
+	 * Initialisation des menus et des items des menus.
 	 */
 	private void initComponents() {
-
 		menuFile = new JMenu("File");
 		menuEdit = new JMenu("Edit");
 
@@ -80,13 +79,12 @@ public class MenuVue extends JMenuBar {
 		menuFile.add(openImage);
 		menuFile.add(saveImage);
 		menuFile.add(loadImage);
-
 		menuEdit.add(menuUndo);
 		menuEdit.add(menuRedo);
 	}
 
-	/*
-	 * Initialisation de tout les comportements des items
+	/**
+	 * Initialisation de tous les comportements des items.
 	 */
 	private void initEvents() {
 
@@ -141,6 +139,11 @@ public class MenuVue extends JMenuBar {
 
 	}
 
+	/**
+	 * Methode utilisee pour selectionner une image et la mettre dans les perspectives.
+	 * @param evt, evenement qui declenche la methode.
+	 * @throws IOException
+	 */
 	private void openImageActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
 		fileChooser.showOpenDialog(this);
 		file = fileChooser.getSelectedFile();
@@ -149,20 +152,40 @@ public class MenuVue extends JMenuBar {
 		System.out.println(fileChooser.getSelectedFile().getName() + " succesfully loaded!");
 	}
 	
+	/**
+	 * Methode utilisee pour sauvegarder les perspectives.
+	 * @param evt, evenement qui declenche la methode.
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	private void saveImageActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, IOException {
 		save.sauvegarderFichier(perspectiveControleur.getImages());
 	}
 
+	/**
+	 * Methode utilisee pour charger des perspectives.
+	 * @param evt, evenement qui declenche la methode.
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	private void loadImageActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, IOException {
 		 fileChooser.showOpenDialog(this);
          file = fileChooser.getSelectedFile();
          save.chargerUnFichier(file, perspectiveControleur);
 	}
 
+	/**
+	 * Methode utilisee pour annuler une commande.
+	 * @param evt, evenement qui declenche la methode.
+	 */
 	private void undoActionPerformed(java.awt.event.ActionEvent evt) {
 		commande.undo();
 	}
 	
+	/**
+	 * Methode utilisee pour refaire une commande annulee.
+	 * @param evt, evenement qui declenche la methode.
+	 */
 	private void redoActionPerformed(java.awt.event.ActionEvent evt) {
 		commande.redo();
 	}

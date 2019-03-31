@@ -10,10 +10,14 @@ import Modele.PerspectiveImage;
 import Modele.Vector2;
 
 /**
- * Cette classe gère les images et leurs perspectives
+ * Cette classe sert a gerer les images et les perspectives.
+ * @author Kevin Chenier, Laurent Sieu
+ * 
  */
 public class PerspectiveControleur {
 
+	// Le ID qui represente l'image principal
+	public final int ID_MAIN_IMAGE = 0;
     private final GestionnaireCommande gestionnaireCommande = GestionnaireCommande.getInstance();
 
     private ArrayList<PerspectiveImage> perspectivesImages;
@@ -61,7 +65,8 @@ public class PerspectiveControleur {
      * @param cursorValue, La valeur du mouvement de la roulette de la souris.
      */
     public void zoomer(int ID, int cursorValue) {
-        if (ID > 0) {
+    	// Doit etre plus grand que le ID de l'image principale, car l'image principale ne peut etre zoomee.
+        if (ID > ID_MAIN_IMAGE) {
             gestionnaireCommande.executerCommande(
             		new ZoomCommand(this.perspectivesImages.get(ID), this.perspectivesImages.get(ID).getZoomLevel() + cursorValue));
         }
@@ -74,7 +79,8 @@ public class PerspectiveControleur {
      * @param vector, Le vecteur de translation.
      */
     public void translate(int ID, Vector2 vector) {
-        if (ID > 0) {
+    	// Doit etre plus grand que le ID de l'image principale, car l'image principale ne peut etre bougee.
+        if (ID > ID_MAIN_IMAGE) {
         	gestionnaireCommande.executerCommande(
                     new TranslateCommand(this.perspectivesImages.get(ID), vector));
         }

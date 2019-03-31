@@ -3,12 +3,12 @@ Cours:   LOG121
 Session: H2019
 Groupe:  04
 Projet: Laboratoire #3
-Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chénier, Laurent Sieu
+Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chenier, Laurent Sieu
               
               
 Professeur : Ghizlane El Boussaidi
 Nom du fichier: CadrePrincipale.java
-Date créé: 2019-03-25
+Date cree: 2019-03-25
 Date dern. modif. 2019-03-25
 *******************************************************
 Historique des modifications
@@ -26,9 +26,15 @@ import Controleur.GestionnaireCommande;
 import Controleur.PerspectiveControleur;
 import Modele.PerspectiveImage;
 
+/**
+ * Classe qui represente le cadre principal de l'application. Cette classe contient les boutons pour Redo/Undo
+ * des commandes. Contient aussi la methode main pour tester l'application.
+ * @author Eugene Wiafe, Ian Garcia-Guerrero
+ *
+ */
 public class CadrePrincipal extends JFrame {
 
-	// Bouton pour utiliser undo
+	// Boutons pour utiliser undo et redo
 	private JButton undo;
 	private JButton redo;
 
@@ -44,14 +50,9 @@ public class CadrePrincipal extends JFrame {
 	private GestionnaireCommande commande;
 	private PerspectiveControleur perspectiveControleur;
 
-	/**
-	 * Constructeurs du CadrePrincipale
-	 */
 	public CadrePrincipal() {
 		this.perspectiveControleur = new PerspectiveControleur();
-
 		this.commande = GestionnaireCommande.getInstance();
-		
 		initComponents();
 		initPerspectives();
 		this.setJMenuBar(new MenuVue(perspectiveControleur));
@@ -71,12 +72,11 @@ public class CadrePrincipal extends JFrame {
 	private void initComponents() {
 
 		panneauPrincipal = new JPanel();
+		nameMainImage = new JLabel();
 		undo = new JButton();
 		redo = new JButton(); 
 
-		nameMainImage = new JLabel();
-
-		mainImage = new Onglet(0, perspectiveControleur);
+		mainImage = new Onglet(perspectiveControleur.ID_MAIN_IMAGE, perspectiveControleur);
 		rightPersceptive = new Onglet(1, perspectiveControleur);
 		leftPersceptive = new Onglet(2, perspectiveControleur);
 
@@ -177,8 +177,8 @@ public class CadrePrincipal extends JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	/*
-	 * Initilise les perspective avec son controlleur
+	/**
+	 * Initialise les perspectives avec son controlleur.
 	 */
 	private void initPerspectives() {
 		ArrayList<PerspectiveImage> imagePerspectives = new ArrayList<>(3);
@@ -195,12 +195,10 @@ public class CadrePrincipal extends JFrame {
 		imagePerspectives.add(imageLeft);
 		
 		perspectiveControleur.setImages(imagePerspectives);
-
 	} 
 
 	/**
-	 * Appelle la methode undo de commande 
-	 * 
+	 * Appelle la methode undo de commande. 
 	 * @param evt Evenement qui declanche l'action
 	 */
 	private void undoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,55 +206,15 @@ public class CadrePrincipal extends JFrame {
 	}
 
 	/**
-	 * Appelle la methode redo de commande 
-	 * 
+	 * Appelle la methode redo de commande. 
 	 * @param evt Evenement qui declanche l'action
 	 */
 	private void redoActionPerformed(java.awt.event.ActionEvent evt) {
 		commande.redo();
 	}
 
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
 	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} 
-		// </editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new CadrePrincipal();
-			}
-		});
+		new CadrePrincipal();
 	}
 
 }
