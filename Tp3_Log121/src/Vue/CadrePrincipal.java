@@ -26,7 +26,7 @@ import Controleur.GestionnaireCommande;
 import Controleur.PerspectiveControleur;
 import Modele.PerspectiveImage;
 
-public class CadrePrincipale extends JFrame {
+public class CadrePrincipal extends JFrame {
 
 	// Bouton pour utiliser undo
 	private JButton undo;
@@ -45,9 +45,9 @@ public class CadrePrincipale extends JFrame {
 	private PerspectiveControleur perspectiveControleur;
 
 	/**
-	 * Creates new form NewJFrame
+	 * Constructeurs du CadrePrincipale
 	 */
-	public CadrePrincipale() {
+	public CadrePrincipal() {
 		this.perspectiveControleur = new PerspectiveControleur();
 
 		this.commande = GestionnaireCommande.getInstance();
@@ -198,10 +198,20 @@ public class CadrePrincipale extends JFrame {
 
 	} 
 
+	/**
+	 * Appelle la methode undo de commande 
+	 * 
+	 * @param evt Evenement qui declanche l'action
+	 */
 	private void undoActionPerformed(java.awt.event.ActionEvent evt) {
 		commande.undo();
 	}
 
+	/**
+	 * Appelle la methode redo de commande 
+	 * 
+	 * @param evt Evenement qui declanche l'action
+	 */
 	private void redoActionPerformed(java.awt.event.ActionEvent evt) {
 		commande.redo();
 	}
@@ -227,16 +237,16 @@ public class CadrePrincipale extends JFrame {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipale.class.getName()).log(java.util.logging.Level.SEVERE,
+			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
 					null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipale.class.getName()).log(java.util.logging.Level.SEVERE,
+			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
 					null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipale.class.getName()).log(java.util.logging.Level.SEVERE,
+			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
 					null, ex);
 		} catch (UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(CadrePrincipale.class.getName()).log(java.util.logging.Level.SEVERE,
+			java.util.logging.Logger.getLogger(CadrePrincipal.class.getName()).log(java.util.logging.Level.SEVERE,
 					null, ex);
 		} 
 		// </editor-fold>
@@ -244,7 +254,7 @@ public class CadrePrincipale extends JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new CadrePrincipale();
+				new CadrePrincipal();
 			}
 		});
 	}
