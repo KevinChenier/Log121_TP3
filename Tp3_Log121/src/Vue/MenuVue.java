@@ -37,10 +37,11 @@ public class MenuVue extends JMenuBar {
 	private JMenu menuEdit;
 	private JMenuItem openImage;
 	private JMenuItem saveImage;
+	private JMenuItem loadImage;
 	private JMenuItem menuUndo;
 	private JMenuItem menuRedo;
 
-	private final JFileChooser choicedFile = new JFileChooser();
+	private final JFileChooser fileChooser = new JFileChooser();
 	private File file;
 
 	private PerspectiveControleur perspectiveControleur;
@@ -72,11 +73,13 @@ public class MenuVue extends JMenuBar {
 
 		openImage = new JMenuItem("Open Image");
 		saveImage = new JMenuItem("Save Images");
+		loadImage = new JMenuItem("Load Images");
 		menuUndo = new JMenuItem("Undo");
 		menuRedo = new JMenuItem("Redo");
 
 		menuFile.add(openImage);
 		menuFile.add(saveImage);
+		menuFile.add(loadImage);
 
 		menuEdit.add(menuUndo);
 		menuEdit.add(menuRedo);
@@ -87,7 +90,7 @@ public class MenuVue extends JMenuBar {
 	 */
 	private void initEvents() {
 
-		choicedFile.setCurrentDirectory(new File(PATH));
+		fileChooser.setCurrentDirectory(new File(PATH));
 
 		openImage.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +114,18 @@ public class MenuVue extends JMenuBar {
 				}
 			}
 		});
+		
+		loadImage.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+					loadImageActionPerformed(evt);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 
 		menuUndo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,18 +142,21 @@ public class MenuVue extends JMenuBar {
 	}
 
 	private void openImageActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
-		choicedFile.showOpenDialog(this);
-		file = choicedFile.getSelectedFile();
+		fileChooser.showOpenDialog(this);
+		file = fileChooser.getSelectedFile();
 		perspectiveControleur.setImages(file);
 
-		System.out.println(choicedFile.getSelectedFile().getName() + " succesfully loaded!");
+		System.out.println(fileChooser.getSelectedFile().getName() + " succesfully loaded!");
+	}
+	
+	private void saveImageActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, IOException {
+		save.sauvegarderFichier(perspectiveControleur.getImages());
 	}
 
-	private void saveImageActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, IOException {
-		 choicedFile.showOpenDialog(this);
-         file = choicedFile.getSelectedFile();
+	private void loadImageActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, IOException {
+		 fileChooser.showOpenDialog(this);
+         file = fileChooser.getSelectedFile();
          save.chargerUnFichier(file, perspectiveControleur);
-
 	}
 
 	private void undoActionPerformed(java.awt.event.ActionEvent evt) {

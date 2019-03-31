@@ -1,6 +1,8 @@
 package Modele;
 
-public class SauvegardePerspective  {
+import java.io.Serializable;
+
+public class SauvegardePerspective implements Serializable  {
 
     private byte[] imageBytes = null;
     private Vector2 vectors[] = null;
