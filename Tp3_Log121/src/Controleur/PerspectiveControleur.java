@@ -1,3 +1,21 @@
+/******************************************************
+Cours:   LOG121
+Session: H2019
+Groupe:  04
+Projet: Laboratoire #3
+Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chenier, Laurent Sieu
+              
+              
+Professeur : Ghizlane El Boussaidi
+Nom du fichier: CadrePrincipale.java
+Date cree: 2019-03-25
+Date dern. modif. 2019-03-25
+*******************************************************
+Historique des modifications
+*******************************************************
+
+*******************************************************/
+
 package Controleur;
 
 import java.awt.image.BufferedImage;
@@ -12,7 +30,7 @@ import Modele.Vector2;
 /**
  * Cette classe sert a gerer les images et les perspectives.
  * @author Kevin Chenier, Laurent Sieu
- * 
+ * bvvv
  */
 public class PerspectiveControleur {
 
@@ -67,7 +85,7 @@ public class PerspectiveControleur {
     public void zoomer(int ID, int cursorValue) {
     	// Doit etre plus grand que le ID de l'image principale, car l'image principale ne peut etre zoomee.
         if (ID > ID_MAIN_IMAGE) {
-            gestionnaireCommande.executerCommande(
+            gestionnaireCommande.executeCommande(
             		new ZoomCommand(this.perspectivesImages.get(ID), this.perspectivesImages.get(ID).getZoomLevel() + cursorValue));
         }
     }
@@ -81,7 +99,7 @@ public class PerspectiveControleur {
     public void translate(int ID, Vector2 vector) {
     	// Doit etre plus grand que le ID de l'image principale, car l'image principale ne peut etre bougee.
         if (ID > ID_MAIN_IMAGE) {
-        	gestionnaireCommande.executerCommande(
+        	gestionnaireCommande.executeCommande(
                     new TranslateCommand(this.perspectivesImages.get(ID), vector));
         }
     }

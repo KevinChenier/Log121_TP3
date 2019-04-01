@@ -1,3 +1,21 @@
+/******************************************************
+Cours:   LOG121
+Session: H2019
+Groupe:  04
+Projet: Laboratoire #3
+Étudiant(e)s: Eugene Wiafe, Ian Garcia-Guerrero, Kevin Chenier, Laurent Sieu
+              
+              
+Professeur : Ghizlane El Boussaidi
+Nom du fichier: CadrePrincipale.java
+Date cree: 2019-03-25
+Date dern. modif. 2019-03-25
+*******************************************************
+Historique des modifications
+*******************************************************
+
+*******************************************************/
+
 package Modele;
 
 import java.io.Serializable;
@@ -47,7 +65,7 @@ public class Vector2 implements Serializable{
 	
 	/**
 	 * Setter de la position en y.
-	 * @param y, la position en y.
+	 * @param y, la position en y. 
 	 */
 	public void setY(int y) {
 		this.y = y;
